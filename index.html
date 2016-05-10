@@ -195,12 +195,29 @@
 			});
 		});
 		$('#sendSMS').click(function() {
-			var smsOptions = {};
-			var phone = getInputVal('#SMSNumber');
-			request.html('branch.sendSMS(' + phone + ', ' + JSON.stringify(sampleParams) + ', ' + smsOptions + ');');
-			branch.sendSMS(phone, sampleParams, smsOptions, function(err, data) {
-				response.html(err || JSON.stringify(data) || 'undefined');
-			});
+branch.sendSMS(
+    '4155139771',
+    {
+        tags: ['tag1', 'tag2'],
+        channel: 'facebook',
+        feature: 'dashboard',
+        stage: 'new user',
+        data: {
+            mydata: 'something',
+            foo: 'bar',
+            '$desktop_url': 'http://myappwebsite.com',
+            '$ios_url': 'http://myappwebsite.com/ios',
+            '$ipad_url': 'http://myappwebsite.com/ipad',
+            '$android_url': 'http://myappwebsite.com/android',
+            '$og_app_id': '12345',
+            '$og_title': 'My App',
+            '$og_description': 'My app\'s description.',
+            '$og_image_url': 'http://myappwebsite.com/image.png'
+        }
+    },
+    { make_new_link: true }, // Default: false. If set to true, sendSMS will generate a new link even if one already exists.
+    function(err) { console.log(err); }
+);
 		});
 		$('#sendSMSNew').click(function() {
 			var smsOptions = { make_new_link: true };
