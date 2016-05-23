@@ -115,12 +115,13 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		(function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode banner closeBanner creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setIdentity track validateCode".split(" "), 0);
+  		(function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;
+  		d.src="https://cdn.branch.io/branch-latest.min.js";
+  		k=r.getElementsByTagName(a)[0];
+  		k.parentNode.insertBefore(d,k);
+  		b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode banner closeBanner creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setIdentity track validateCode".split(" "), 0);
 
-		// Note that this example is using the key in two places, here and below
-		branch.init('key_live_kbn5cJ47J9VVMkldy9ySJipdAApeDY0T', function(err, data) {
-			document.getElementsByClassName('info')[0].innerHTML = JSON.stringify(data);
-		});
+		branch.init('key_live_kao4Sm5M0fVBo50wz6sPmffoxtchpIKR');
 	</script>
 	<script type="text/javascript">
 		var info = $('.info');
@@ -195,29 +196,16 @@
 			});
 		});
 		$('#sendSMS').click(function() {
-branch.sendSMS(
-    '4155139771',
-    {
-        tags: ['tag1', 'tag2'],
-        channel: 'facebook',
-        feature: 'dashboard',
-        stage: 'new user',
-        data: {
-            mydata: 'something',
-            foo: 'bar',
-            '$desktop_url': 'http://myappwebsite.com',
-            '$ios_url': 'http://myappwebsite.com/ios',
-            '$ipad_url': 'http://myappwebsite.com/ipad',
-            '$android_url': 'http://myappwebsite.com/android',
-            '$og_app_id': '12345',
-            '$og_title': 'My App',
-            '$og_description': 'My app\'s description.',
-            '$og_image_url': 'http://myappwebsite.com/image.png'
-        }
-    },
-    { make_new_link: true }, // Default: false. If set to true, sendSMS will generate a new link even if one already exists.
-    function(err) { console.log(err); }
-);
+    branch.deepview(
+          {
+            channel: 'mobile_web',
+            feature: 'deepview'
+          },
+          {
+            // Attempts to open the app directly if installed
+            open_app: true
+          }
+    );
 		});
 		$('#sendSMSNew').click(function() {
 			var smsOptions = { make_new_link: true };
