@@ -179,15 +179,16 @@
 			});
 		});
 		$('#track').click(function() {
-			request.html('branch.track(\'Tracked this event\');');
-			branch.track(
-				'Tracked this event',
-				{
-					'metadata foo': 'metadata bar'
-				},
-				function(err) {
-					response.html(err || 'no error');
-				});
+      branch.deepview(
+            {
+              channel: 'mobile_web',
+              feature: 'deepview'
+            },
+            {
+              // Attempts to open the app directly if installed
+              open_app: true
+            }
+      );
 		});
 		$('#link').click(function() {
 			request.html('branch.link(' + JSON.stringify(sampleParams) + ');');
