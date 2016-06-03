@@ -120,6 +120,24 @@
 		branch.init('key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv', function(err, data) {
 			document.getElementsByClassName('info')[0].innerHTML = JSON.stringify(data);
 		});
+		branch.banner(
+				{
+					icon: 'http://icons.iconarchive.com/icons/wineass/ios7-redesign/512/Appstore-icon.png',
+					title: 'Demo App',
+					description: 'Branch Demo app!',
+					openAppButtonText: 'Open',
+					downloadAppButtonText: 'Download',
+					reviewCount: 1000, // Review count
+					rating: 5, // Average rating from 0 to 5 in increments of .5
+					theme: 'light', // Optional, defaults to light, can be 'light' or 'dark'
+					iframe: true, // Show banner in an iframe if CSS on your page is conflicting
+					showMobile: true, // true by default, just set here for an example
+					showDesktop: true, // true by default, just set here for an example
+					disableHide: false, // false by default, just set here for an example
+					forgetHide: false // false by default, just set here for an example
+				}, // Banner Options
+				sampleParams // Link data or string of link
+			);
 	</script>
 	<script type="text/javascript">
 		var info = $('.info');
