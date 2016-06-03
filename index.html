@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,13 +114,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-  		(function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;
-  		d.src="https://cdn.branch.io/branch-latest.min.js";
-  		k=r.getElementsByTagName(a)[0];
-  		k.parentNode.insertBefore(d,k);
-  		b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode banner closeBanner creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setIdentity track validateCode".split(" "), 0);
+		(function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode banner closeBanner creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setIdentity track validateCode".split(" "), 0);
 
-		branch.init('key_live_kao4Sm5M0fVBo50wz6sPmffoxtchpIKR');
+		// Note that this example is using the key in two places, here and below
+		branch.init('key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv', function(err, data) {
+			document.getElementsByClassName('info')[0].innerHTML = JSON.stringify(data);
+		});
 	</script>
 	<script type="text/javascript">
 		var info = $('.info');
@@ -155,7 +153,7 @@
 		$('#init').click(function() {
 			request.html('branch.init();');
 			// Note that this example is using the key in two places, here and above
-			branch.init('key_live_kbn5cJ47J9VVMkldy9ySJipdAApeDY0T', function(err, data) {
+			branch.init('key_live_feebgAAhbH9Tv85H5wLQhpdaefiZv5Dv', function(err, data) {
 				response.html(err || JSON.stringify(data));
 			});
 		});
@@ -179,16 +177,15 @@
 			});
 		});
 		$('#track').click(function() {
-      branch.deepview(
-            {
-              channel: 'mobile_web',
-              feature: 'deepview'
-            },
-            {
-              // Attempts to open the app directly if installed
-              open_app: true
-            }
-      );
+			request.html('branch.track(\'Tracked this event\');');
+			branch.track(
+				'Tracked this event',
+				{
+					'metadata foo': 'metadata bar'
+				},
+				function(err) {
+					response.html(err || 'no error');
+				});
 		});
 		$('#link').click(function() {
 			request.html('branch.link(' + JSON.stringify(sampleParams) + ');');
@@ -197,16 +194,12 @@
 			});
 		});
 		$('#sendSMS').click(function() {
-    branch.deepview(
-          {
-            channel: 'mobile_web',
-            feature: 'deepview'
-          },
-          {
-            // Attempts to open the app directly if installed
-            open_app: true
-          }
-    );
+			var smsOptions = {};
+			var phone = getInputVal('#SMSNumber');
+			request.html('branch.sendSMS(' + phone + ', ' + JSON.stringify(sampleParams) + ', ' + smsOptions + ');');
+			branch.sendSMS(phone, sampleParams, smsOptions, function(err, data) {
+				response.html(err || JSON.stringify(data) || 'undefined');
+			});
 		});
 		$('#sendSMSNew').click(function() {
 			var smsOptions = { make_new_link: true };
